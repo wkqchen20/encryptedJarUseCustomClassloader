@@ -40,8 +40,7 @@ public class CustomClassLoader extends ClassLoader {
 
     private byte[] loadClassData(String name) throws IOException {
         try (InputStream stream = getClass().getClassLoader().getResourceAsStream(name)) {
-            int length = stream.available();
-            byte[] bytes = IOUtils.readFully(stream, length);
+            byte[] bytes = IOUtils.toByteArray(stream);
             if (Clazz.isClass(bytes)) {
                 return bytes;
             }
