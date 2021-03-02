@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static com.lxy.util.clazz.Constants.ENCRYPT_FUNC;
 import static com.lxy.util.clazz.Constants.PACKAGE_FILTER;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class ReWriterTest {
 
@@ -26,9 +26,10 @@ public class ReWriterTest {
 
     @Test
     public void shouldGenerateEncryptedJar() throws IOException {
-        Map<String, ReWriter.Tuple> classMap = ReWriter.loadClasses(new File(libPath, "readable-jar.jar"));
+        Jar jar = new Jar(new File(libPath, "readable-jar.jar"));
+        Map<String, Jar.Tuple> classMap = jar.getClasses();
         ReWriter.encrypt(classMap, PACKAGE_FILTER, ENCRYPT_FUNC);
-        ReWriter.write(classMap, targetFile);
+        Jar.write(classMap, targetFile);
         assertTrue(targetFile.exists());
     }
 }
